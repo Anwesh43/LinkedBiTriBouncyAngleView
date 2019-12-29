@@ -11,6 +11,7 @@ import android.view.MotionEvent
 import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Color
+import android.util.Log
 
 val nodes : Int = 5
 val lines : Int = 2
@@ -95,6 +96,40 @@ class BiTriBouncyAngleView(ctx : Context) : View(ctx) {
             if (dir == 0f) {
                 dir = 1f - 2 * prevScale
                 cb()
+            }
+        }
+    }
+
+    data class Animator(var view : View, var animated : Boolean = false, var t : Long = System.currentTimeMillis()) {
+
+        fun animate(cb : () -> Unit) {
+            if (animated) {
+                cb()
+                try {
+                    Thread.sleep(delay)
+                    view.invalidate()
+                } catch(ex : Exception) {
+
+                }
+            }
+
+        }
+
+        fun start() {
+            if (!animated) {
+                t = System.currentTimeMillis()
+                Log.d("starting animation at", "$t")
+                animated = true
+                view.postInvalidate()
+            }
+        }
+
+        fun stop() {
+            if (animated) {
+                var currT : Long = System.currentTimeMillis()
+                animated = false
+                Log.d("stopping animation at:", "${currT}")
+                Log.d("animated for", "${currT - t} milliseconds")
             }
         }
     }
