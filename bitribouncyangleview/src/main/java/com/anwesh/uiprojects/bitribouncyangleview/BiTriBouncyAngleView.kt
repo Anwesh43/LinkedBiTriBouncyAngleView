@@ -223,4 +223,13 @@ class BiTriBouncyAngleView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BiTriBouncyAngleView {
+            val view : BiTriBouncyAngleView = BiTriBouncyAngleView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
