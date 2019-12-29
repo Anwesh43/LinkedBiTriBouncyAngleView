@@ -21,7 +21,7 @@ val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#3F51B5")
 val backColor : Int = Color.parseColor("#BDBDBD")
 val rotDeg : Float = 45f
-val delay : Long = 30
+val delay : Long = 15
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -34,7 +34,7 @@ fun Float.yRad(deg : Float) : Float = this * Math.sin(deg * Math.PI / 180f).toFl
 fun Canvas.drawBiTriAngle(i : Int, scale : Float, size : Float, paint : Paint) {
     val sf : Float = scale.sinify().divideScale(i, lines)
     val si : Float = i.si()
-    val x : Float = size.xRad(rotDeg)
+    val x : Float = size.xRad(rotDeg) * si
     val y : Float = size.yRad(rotDeg)
     save()
     translate(x, y)
