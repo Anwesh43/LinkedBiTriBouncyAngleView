@@ -200,4 +200,26 @@ class BiTriBouncyAngleView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BiTriBouncyAngleView) {
+
+        private val animator : Animator = Animator(view)
+        private val btba : BiTriBouncyAngle = BiTriBouncyAngle(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            btba.draw(canvas, paint)
+            animator.animate {
+                btba.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            btba.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
